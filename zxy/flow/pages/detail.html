@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="referrer" content="never">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/detail.css" class="">
+    <link rel="shortcut icon" href="../images/favicon.ico" class="">
+    <title>Document</title>
+    <style>
+        h4{
+            color:tomato;
+        }
+        h5{
+            color:pink;
+            margin:10px 0 25px 0;
+        }
+        .price{
+            margin:10px 0 25px 0; 
+        }
+        .price span{
+            color:red;
+            font:20px/24px "";
+        }
+       .container{
+           margin-top:10px;
+       } 
+       .container .row .aa{
+        margin:10px 30px 25px 0;
+        border-radius:5px;
+        font-size: 20px;
+       }
+       .container .row .bb{
+        margin:10px 30px 25px 0;
+        border-radius:5px;
+        font-size: 20px;
+       }
+       .box1{
+           margin:0;
+       }
+    </style>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+        }
+        .body{
+            overflow: hidden;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+    
+        .box {
+          width: 450px;
+          float:left;
+          margin: 50px 50px 50px 0;
+          display: flex;
+          flex-direction: column;
+          
+          position: relative;
+        }
+    
+        .box > .show {
+          width: 450px;
+          height: 450px;
+          border: 1px solid #333;
+          position: relative;
+        }
+    
+        .box > .show > .mask {
+          width: 200px;
+          height: 200px;
+          background-color: yellow;
+          opacity: .4;
+          position: absolute;
+          top: 0px;
+          left: 0px;
+    
+          display: none;
+        }
+    
+        .box > .list {
+          width: 100%;
+          flex: 1;
+          
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+    
+          box-sizing: border-box;
+          padding: 20px;
+        }
+    
+        .box > .list > p {
+          width: 54px;
+          height: 54px;
+          border: 1px solid #333;
+          margin-right: 10px;
+        }
+    
+        .box > .list > p.active {
+          border-color: red;
+        }
+    
+        .box > .enlarge {
+          width: 400px;
+          height: 400px;
+    
+          position: absolute;
+          top: 0;
+          left: 101%;
+    
+          /* background: url(https://img01.hua.com/uploadpic/newpic/9010011.jpg_220x240.jpg) no-repeat; */
+          background-size: 800px 800px;
+          background-position: 0 0;
+    
+          display: none;
+        }
+       .media{
+         float:left;
+         margin: 50px 0 0 10px;
+         
+        position:absolute;
+        left:45%;
+       }
+       .enlarge{
+           z-index: 10;
+       }
+      </style>
+</head>
+<body>
+    
+
+    <div class="container">
+        <div class="row">
+                <!-- <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                            <img class="media-object" src="https://img01.hua.com/uploadpic/newpic/9012228.jpg_220x240.jpg" alt="...">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">浪漫心情--来我的怀里，拥抱我的爱，把你的热情摊开</h4>
+                            <h5>火热玫瑰  幸福告白</h5>
+                            <div class="box1">
+                                <p>类 别：鲜花编号：9012228</p>
+                                <p>材 料： 红玫瑰12支</p>
+                                <p>包 装： 深灰色opp雾面纸2张，酒红色宽缎带1.5米</p>
+                                <p>华 语： 铺满玫瑰的夜里，有温暖的告白在等待，来我的怀里，拥抱我的爱，把你的热情摊开，我会一直都在！</p>
+                                <p>附 送： 下单填写留言，即免费赠送精美贺卡！</p>
+                                <p>配 送： 全国 （可配送至全国2000多城市，市区免配送费）</p>
+                                </div>
+                            <div class="price">
+                                <i>花礼价：</i>
+                                <span class="">￥520</span>
+                            </div>
+                           
+                            <div class="a">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default aa" name="buynow">立即购买</button>
+                                    <button type="button" class="btn btn-default bb" name="addCart">加入购物车</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+                <div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">宝贝详情</a></li>
+                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">累计评论</a></li>
+                        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">专享服务</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home"><div id="Details" class="tabs-panel" style="margin-top: 0px;">
+                                <div style="text-align:center;">
+                    <img alt="" src="//img01.hua.com/uploadpic/images/20170915172608547.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/20170901112235410.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/20170901112235771.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/by_20180629142405708.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/20170915172621520.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/2017090111223873.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/20170901112239453.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/20170901112240840.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/20170901112241221.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/by_20180719104217683.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/20170915172645985.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/by_20180719104225687.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/20170901112248820.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/by_20180606143807526.jpg"><img alt="" src="//img01.hua.com/uploadpic/images/20170915172718922.jpg"><br>
+                </div>
+                                        <img src="//img02.hua.com/pc/images/xianhua_cardstyle.jpg" alt="附送贺卡" border="0">
+                                <section class="disseminate">
+                                    <div class="point">
+                                        <div class="point-title point-title-bb">龙头企业认证·14年品牌</div>
+                                        <div class="point-body">
+                                            <p>始于2005，多次获中国电子商务协会“鲜花龙头企业”认证。</p>
+                                            <img src="https://img02.hua.com/m/pro_detail/m_details_point_01.png" alt="鲜花龙头企业">
+                                        </div>
+                                    </div>
+                                    <div class="point">
+                                        <div class="point-title point-title-bb">12道品控标准 + 送前实拍</div>
+                                        <div class="point-body">
+                                            <p>行业内率先研发并实施12道严苛品控标准：从花材采购、制作、成品、配送、售后全程覆盖，将产品及服务标准化；每束花均实拍回传总部审核，符合品控标准方可送出。</p>
+                                            <img src="https://img02.hua.com/m/pro_detail/m_details_point_02.png" alt="送前实拍">
+                                        </div>
+                                    </div>
+                                    <div class="point">
+                                        <div class="point-title point-title-bb">花艺设计团队</div>
+                                        <div class="point-body">
+                                            <p>国内领先的原创花艺：中国花艺博览会赛事冠军花艺师打造团队，坚持原创设计，创作花款迄今已畅销千万束。</p>
+                                            <img src="https://img02.hua.com/m/pro_detail/m_details_point_03.png" alt="花艺设计团队">
+                                        </div>
+                                    </div>
+                                    <div class="point">
+                                        <div class="point-title point-title-bb">当日新鲜花材制作，极速送达</div>
+                                        <div class="point-body">
+                                            <p>门店覆盖全国2000+城市，鲜花皆由当地门店花艺师在配送当日使用新鲜A级花材制作，确保鲜花娇艳欲滴！并由专人专车送货上门，最快1小时送达，快人一步！</p>
+                                            <img src="https://img02.hua.com/m/pro_detail/m_details_point_04.png" alt="新鲜花材">
+                                        </div>
+                                    </div>
+                                    <div class="point">
+                                        <div class="point-title point-title-bb">客服团队</div>
+                                        <div class="point-body">
+                                            <p>建设一支较其他电商更大规模的客服团队，将常规客服升级为售前订花顾问、售中专人跟单、售后快速响应的一站式管家客服模式。</p>
+                                            <img src="https://img02.hua.com/m/pro_detail/m_details_point_05.png" alt="客服团队">
+                                        </div>
+                                    </div>
+                                    <div class="point">
+                                        <div class="point-title point-title-bb">优秀平台汇聚优秀人才</div>
+                                        <div class="point-body">
+                                            <p>我们相信优秀的平台环境可以吸引同样气质、热爱花礼行业的优秀人才。</p>
+                                            <img src="https://img02.hua.com/m/pro_detail/m_details_point_06.png" alt="优秀平台汇聚优秀人才">
+                                        </div>
+                                    </div>
+                                    <div class="point">
+                                        <div class="point-title point-title-bb">不只鲜花 · 跨界音乐微电影</div>
+                                        <div class="point-body">
+                                            <p>联合GIMC打造“勇敢爱”系列原创微电影、赞助《不要音乐》大型音乐旅行节目，全网播放超5000万次。</p>
+                                            <img src="https://img02.hua.com/m/pro_detail/m_details_point_07.png" alt="跨界音乐微电影">
+                                        </div>
+                                    </div>
+                                </section>
+                            </div></div>
+                        <div role="tabpanel" class="tab-pane" id="profile">累计评论213123123</div>
+                        <div role="tabpanel" class="tab-pane" id="messages">专享服务123123213</div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    
+    
+    
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../js/cookie.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/ajax.js"></script>
+    <!-- <script src="../js/detail/detail.js"></script> -->
+    <script src="../js/detail.js"></script>
+</body>
+</html>

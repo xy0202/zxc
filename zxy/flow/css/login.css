@@ -1,0 +1,13 @@
+
+.login{
+    width: 100%;
+    height: 520px;
+    background-image: url(../images/2.png);
+    opacity: 0.9;
+}
+.login-top{
+    color:red;
+}
+.login-body{
+    margin:50px 0 0 50px;
+}

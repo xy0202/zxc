@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="referrer" content="never">
+    <title>Document</title>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/list.css">
+    <link rel="shortcut icon" href="../images/favicon.ico" class="">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .out {
+            position: relative;
+            width: 1200px;
+            height: 350px;
+            margin: 0 auto;
+        }
+        
+        .out .img img {
+            width: 1200px;
+            height: 350px;
+        }
+        
+        .out .img li {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+        
+        .out .num {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            font-size: 0;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .out .num li {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            font-size: 16px;
+            background-color: #666;
+            color: #fff;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 50%;
+            margin: 0 3px;
+            cursor: pointer;
+        }
+        
+        .out .num li.active {
+            background-color: #a00;
+        }
+        
+        .out .btn {
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 60px;
+            margin-top: -30px;
+            background: rgba(0, 0, 0, .5);
+            color: #fff;
+            text-align: center;
+            line-height: 60px;
+            font-size: 40px;
+            display: none;
+        }
+        
+        .out:hover .btn {
+            display: block;
+            cursor: pointer;
+        }
+        
+        .out .left {
+            left: 192px;
+        }
+        
+        .out .right {
+            right: 192px;
+        }
+        
+        .container {
+            margin-top: 10px;
+        }
+        
+        .operate-area span {
+            font-size: 20px;
+        }
+        
+        #map {
+            width: 1200px;
+            height: 214px;
+            background: #dbdbcd;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        #map .map-l {
+            float: left;
+            width: 492px;
+        }
+        
+        #map .map-l dl {
+            float: left;
+            margin: 33px 31px 0 10px;
+            text-align: center;
+        }
+        
+        #map .map-l dl dt {
+            font: 12px/2 "";
+            color: rgb(248, 30, 1);
+        }
+        
+        #map .map-l dl dd {
+            font: 12px/2 "";
+            color: #055174;
+        }
+        
+        #map .map-c {
+            float: left;
+            width: 315px;
+        }
+        
+        #map .map-c img {
+            margin: 8px 0 0 40px;
+            width: 200px;
+            height: 200px;
+        }
+        
+        #map .map-r {
+            float: left;
+            width: 194px;
+        }
+        
+        #map .map-r img {
+            margin: 8px 0 0 117px;
+            width: 200px;
+            height: 200px;
+        }
+        
+        #footer {
+            font: 12px/45px "";
+            color: rgb(238, 6, 238);
+            width: 1200px;
+            height: 45px;
+            background: #d1da84;
+            margin: 0 auto;
+            text-align: center;
+            margin: 0 auto;
+        }
+    </style>
+    <script>
+        $(function() {
+            //初始化
+            var size = $(".img li").size(); //获取图片的个数
+            for (var i = 1; i <= size; i++) { //创建图片个数相对应的底部数字个数
+                var li = "<li>" + i + "</li>"; //创建li标签，并插入到页面中
+                $(".num").append(li);
+            }
+
+            //手动控制图片轮播
+            $(".img li").eq(0).show(); //显示第一张图片
+            $(".num li").eq(0).addClass("active"); //第一张图片底部相对应的数字列表添加active类
+            $(".num li").mouseover(function() {
+                $(this).addClass("active").siblings().removeClass("active"); //鼠标在哪个数字上那个数字添加class为active
+                var index = $(this).index(); //定义底部数字索引值
+                i = index; //底部数字索引值等于图片索引值
+                $(".img li").eq(index).stop().fadeIn(300).siblings().stop().fadeOut(300); //鼠标移动到的数字上显示对应的图片
+            })
+
+            //自动控制图片轮播
+            var i = 0; //初始i=0
+            var t = setInterval(move, 2000); //设置定时器，1.5秒切换下一站轮播图
+            //向左切换函数
+            function moveL() {
+                i--;
+                if (i == -1) {
+                    i = size - 1; //如果这是第一张图片再按向左的按钮则切换到最后一张图
+                }
+                $(".num li").eq(i).addClass("active").siblings().removeClass("active"); //对应底部数字添加背景
+                $(".img li").eq(i).fadeIn(300).siblings().fadeOut(300); //对应图片切换
+            }
+            //向右切换函数
+            function move() {
+                i++;
+                if (i == size) {
+                    i = 0; //如果这是最后一张图片再按向右的按钮则切换到第一张图
+                }
+                $(".num li").eq(i).addClass("active").siblings().removeClass("active"); //对应底部数字添加背景
+                $(".img li").eq(i).fadeIn(300).siblings().fadeOut(300); //对应图片切换
+            }
+            //左按钮点击事件
+            $(".out .left").click(function() {
+                    moveL(); //点击左键调用向左切换函数
+                })
+                //右按钮点击事件
+            $(".out .right").click(function() {
+                    move(); //点击右键调用向右切换函数
+                })
+                //定时器开始与结束
+            $(".out").hover(function() {
+                clearInterval(t); //鼠标放在轮播区域上时，清除定时器
+            }, function() {
+                t = setInterval(move, 2000); //鼠标移开时定时器继续
+            })
+        })
+    </script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body,
+        html {
+            height: 100%;
+            font: 12px/1.5 Tahoma, Helvetica, Arial, sans-serif;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            border: 0 none;
+            vertical-align: bottom;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        
+        .left {
+            float: left;
+        }
+        
+        .right {
+            float: right;
+        }
+        /**左侧菜单**/
+        
+        .sec-mainL {
+            width: 210px;
+            /* box-shadow: 2px 0 4px #D5D5D5; */
+            /* position: absolute; */
+            z-index: 5;
+            left: 0;
+            top: 97px;
+        }
+        
+        .sec-mainNav {
+            display: none;
+        }
+        
+        .sec-mainL:hover .sec-mainNav {
+            display: block;
+            z-index: 999;
+            width: 210px;
+        }
+        
+        .mainL-hd-box {
+            /* padding-bottom: 5px; */
+            background: url(img/index.png) no-repeat 0 39px;
+        }
+        
+        .mainL-hd {
+            height: 34px;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+            background: #ec8d10;
+            ;
+        }
+        
+        .mainL-hd a {
+            color: #fff;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .mainL-hd a:before {
+            content: "";
+            display: inline-block;
+            /*width:px;*/
+            /*height:px;*/
+            background: url(img/iconsB.png) no-repeat -73px 0;
+        }
+        /**菜单列表**/
+        
+        .sec-mainNav>li {
+            padding: 15px 15px 25px;
+            position: relative;
+            background: #F0F0F0;
+            cursor: pointer;
+            z-index: 4;
+        }
+        
+        .sec-mainNav>li:nth-child(2n) {
+            background: #FFF;
+        }
+        
+        .sec-mainNav>li h3 {
+            font-size: 12px;
+        }
+        
+        .sec-mainNav>li.hover {
+            background: #545651;
+        }
+        
+        .sec-mainNav>li.hover h3,
+        .sec-mainNav>li.hover .menu-tab a {
+            color: #fff;
+        }
+        
+        .sec-mainNav li .menu-tab {
+            margin-top: 5px;
+        }
+        
+        .sec-mainNav li .menu-tab a {
+            float: left;
+            margin-right: 6px;
+            color: #888;
+        }
+        
+        .sec-mainNav li .menu-more {
+            position: absolute;
+            display: block;
+            width: 6px;
+            height: 9px;
+            right: 19px;
+            top: 28px;
+            line-height: 999;
+            overflow: hidden;
+            background: url(img/index.png) no-repeat 0 -6px;
+        }
+        /**二级菜单**/
+        
+        .menu-panel {
+            position: absolute;
+            width: 446px;
+            padding: 18px 34px;
+            /*display:;*/
+            top: 0;
+            left: 210px;
+            z-index: 5;
+            box-shadow: inset 2px 0 5px 0 #D5D5D5, 2px 0 3px #E8E8E8;
+            background: #fff;
+            display: none;
+        }
+        
+        .menu-panel h4 {
+            font-family: "Microsoft YaHei", "微软雅黑", "黑体";
+            font-size: 14px;
+            color: #e64e3e;
+            margin-bottom: 9px;
+        }
+        
+        .menu-panel-hd {
+            border-bottom: 1px dotted #E2E2E2;
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        
+        .sub-group a {
+            color: #555;
+            display: inline-block;
+            margin-right: 16px;
+        }
+        
+        .sub-group a:hover {
+            color: #E64E3E;
+            text-decoration: underline;
+        }
+        
+        .menu-panel-bd li {
+            float: left;
+            width: 88px;
+            /* height: 56px; */
+            border: 1px solid #EDEEEF;
+            margin: 0 0 -1px -1px;
+            background-color: #FFF;
+        }
+        
+        .menu-panel-bd li a {
+            display: block;
+            text-align: center;
+        }
+        
+        .menu-panel-bd li a img {
+            width: 80px;
+            height: 27px;
+            margin-top: 14px;
+        }
+        
+        .menu-panel-btn {
+            display: inline-block;
+            height: 25px;
+            line-height: 25px;
+            margin-top: 15px;
+            padding: 0 10px;
+            color: #FFF;
+            background-color: #E64E3E;
+        }
+        
+        .menu-panel-btn em {
+            width: 0;
+            height: 0;
+            margin-left: 6px;
+            overflow: hidden;
+            font-size: 0;
+            display: inline-block;
+            border-width: 4px;
+            border-color: transparent transparent transparent #FFF;
+            border-style: dashed dashed dashed solid;
+        }
+        /**中间部分**/
+        
+        .sec-mainM {
+            width: 666px;
+            position: relative;
+            z-index: 3;
+        }
+    </style>
+    <link href="../css/public.css" rel="stylesheet" type="text/css">
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <div id="top">
+        <div class="margin">
+            <i class="login">欢迎登陆</i>
+            <a href="./zhuce.html">免费注册</a>
+            <b class="del">注销</b>
+            <span>|</span>
+            <a href="#" class="te">你要花吗</a>
+            <i class="jian bg"></i>
+            <span>|</span>
+            <i class="iphone bg"></i>
+            <a href="#" class="te">你要花吗</a>
+            <i class="jian bg"></i>
+            <span>|</span>
+            <a href="#" class="te2">你要花吗</a>
+            <span>|</span>
+            <i class="qq bg"></i>
+            <a href="#" class="te2">你要花吗</a>
+            <span>|</span>
+            <i class="tel bg"></i>
+            <span>|</span>
+        </div>
+    </div>
+    <div id="header" class="margin">
+        <a href="#" class="logo bg"></a>
+        <div class="search">
+            <form>
+                <input type="text" class="txt" />
+                <input type="submit" class="sub" value="搜索" />
+            </form>
+            <p>
+
+                <a>玫瑰花</a>
+                <a>水仙花</a>
+                <a>永生花</a>
+                <a>生日卡花</a>
+
+            </p>
+        </div>
+        <a href="./cart.html" class="shop bg">购物车<span>0</span>件</a>
+    </div>
+    <div id="nav">
+        <div class="margin">
+            <div class="sec-mainL left">
+                <div class="mainL-hd-box">
+                    <h2 class="mainL-hd">
+                        <a href="">全部商品导购</a>
+                    </h2>
+                </div>
+                <!--菜单列表-->
+                <ul class="sec-mainNav">
+                    <li>
+                        <h3>鲜花用途</h3>
+                        <div class="menu-tab">
+                            <a href="">爱情</a>
+                            <a href="">生日</a>
+                            <a href="">婚庆鲜花</a>
+
+
+                            <div class="fix"></div>
+                        </div>
+                        <span class="menu-more">更多</span>
+                        <!--二级菜单-->
+                        <div class="menu-panel">
+                            <div class="menu-panel-hd">
+                                <h4>热门分类</h4>
+                                <div class="sub-group">
+                                    <a href="">花礼</a>
+                                    <a href="">易迅</a>
+                                    <a href="">苏宁易购</a>
+                                    <a href="">新蛋商城</a>
+                                    <a href="">生日鲜花</a>
+                                    <a href="">摄像影音</a>
+                                    <a href="">耳麦音响</a>
+                                    <a href="">国美在线</a>
+                                </div>
+                            </div>
+                            <div class="menu-panel-bd">
+                                <ul>
+                                    <li>
+                                        <a href=""><img src="../img/0.png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (1).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (2).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (3).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0.jpg" /></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="" class="menu-panel-btn">
+                                <span>查看全部商家</span>
+                                <em></em>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3>鲜花用材</h3>
+                        <div class="menu-tab">
+                            <a href="">玫瑰</a>
+                            <a href="">康乃馨</a>
+                            <a href="">郁金香</a>
+                            <div class="fix"></div>
+                        </div>
+                        <span class="menu-more">更多</span>
+                        <!--二级菜单-->
+                        <div class="menu-panel">
+                            <div class="menu-panel-hd">
+                                <h4>热门分类</h4>
+                                <div class="sub-group">
+                                    <a href="">美食特产</a>
+                                    <a href="">酒水茶叶</a>
+                                    <a href="">蛋糕预订</a>
+                                </div>
+                            </div>
+                            <div class="menu-panel-bd">
+                                <ul>
+                                    <li>
+                                        <a href=""><img src="../img/0.png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (1).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (2).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (3).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0.jpg" /></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="" class="menu-panel-btn">
+                                <span>查看全部商家</span>
+                                <em></em>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3>永生花</h3>
+                        <div class="menu-tab">
+                            <a href="">永生花瓶</a>
+                            <a href="">经典花盒</a>
+                            <a href="">商旅</a>
+                            <div class="fix"></div>
+                        </div>
+                        <span class="menu-more">更多</span>
+                        <!--二级菜单-->
+                        <div class="menu-panel">
+                            <div class="menu-panel-hd">
+                                <h4>热门分类</h4>
+                                <div class="sub-group">
+                                    <a href="">蛋糕预订</a>
+                                    <a href="">鲜花预订</a>
+                                    <a href="">鲜花综合</a>
+                                    <a href="">西饼预订</a>
+                                    <a href="">元组预订</a>
+                                </div>
+                            </div>
+                            <div class="menu-panel-bd">
+                                <ul>
+                                    <li>
+                                        <a href=""><img src="../img/0.png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (1).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (2).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (3).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0.jpg" /></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="" class="menu-panel-btn">
+                                <span>查看全部商家</span>
+                                <em></em>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3>蛋糕</h3>
+                        <div class="menu-tab">
+                            <a href="">飞飞商城</a>
+                            <a href="">蛋糕商城</a>
+                            <a href="">百货</a>
+                            <div class="fix"></div>
+                        </div>
+                        <span class="menu-more">更多</span>
+                        <!--二级菜单-->
+                        <div class="menu-panel">
+                            <div class="menu-panel-hd">
+                                <h4>热门分类</h4>
+                                <div class="sub-group">
+                                    <a href="">幸福西饼</a>
+                                    <a href="">窝夫小子</a>
+                                    <a href="">元祖</a>
+                                    <a href="">诺心蛋糕</a>
+                                </div>
+                            </div>
+                            <div class="menu-panel-bd">
+                                <ul>
+                                    <li>
+                                        <a href=""><img src="../img/0.png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (1).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (2).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (3).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0.jpg" /></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="" class="menu-panel-btn">
+                                <span>查看全部商家</span>
+                                <em></em>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3>礼品/公仔/绿植</h3>
+                        <div class="menu-tab">
+                            <a href="">时尚礼品</a>
+                            <a href="">精品公仔</a>
+                            <a href="">绿植</a>
+                            <div class="fix"></div>
+                        </div>
+                        <span class="menu-more">更多</span>
+                        <!--二级菜单-->
+                        <div class="menu-panel">
+                            <div class="menu-panel-hd">
+                                <h4>热门分类</h4>
+                                <div class="sub-group">
+                                    <a href="">时尚礼品</a>
+                                    <a href="">精品公仔</a>
+                                    <a href="">时尚礼品</a>
+                                    <a href="">精品公仔</a>
+                                    <a href="">限时特卖</a>
+                                    <a href="">时尚礼品</a>
+                                    <a href="">时尚礼品</a>
+                                    <a href="">精品公仔</a>
+                                </div>
+                            </div>
+                            <div class="menu-panel-bd">
+                                <ul>
+                                    <li>
+                                        <a href=""><img src="../img/0.png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (1).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (2).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (3).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0.jpg" /></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="" class="menu-panel-btn">
+                                <span>查看全部商家</span>
+                                <em></em>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3>装饰/服饰/礼品</h3>
+                        <div class="menu-tab">
+                            <a href="">潮流装饰</a>
+                            <a href="">商务服饰</a>
+                            <a href="">包包</a>
+                            <div class="fix"></div>
+                        </div>
+                        <span class="menu-more">更多</span>
+                        <!--二级菜单-->
+                        <div class="menu-panel">
+                            <div class="menu-panel-hd">
+                                <h4>热门分类</h4>
+                                <div class="sub-group">
+                                    <a href="">潮流装饰</a>
+                                    <a href="">商务服饰 </a>
+                                    <a href="">时尚包包</a>
+                                    <a href="">商务服饰</a>
+                                    <a href="">珠宝首饰</a>
+                                    <a href="">经典腕表</a>
+                                    <a href="">商务服饰</a>
+                                    <a href="">奢侈品</a>
+                                </div>
+                            </div>
+                            <div class="menu-panel-bd">
+                                <ul>
+                                    <li>
+                                        <a href=""><img src="../img/0.png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (1).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (2).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0 (3).png" /></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="../img/0.jpg" /></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="" class="menu-panel-btn">
+                                <span>查看全部商家</span>
+                                <em></em>
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            <script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+            <script type="text/javascript">
+                $(function() {
+                    var $top = $('.sec-mainNav').offset().top + $('.sec-mainNav').height()
+                        //左侧导航动画
+                    $('.sec-mainNav li').on('mouseenter', function() {
+                        var $height = $(this).offset().top + $(this).find('.menu-panel').outerHeight()
+                        $(this).find('.menu-panel').show()
+                        if ($height - $top >= 0) {
+                            $(this).find('.menu-panel').css({
+                                top: -($height - $top) + 'px'
+                            })
+                        }
+
+                    })
+                    $('.sec-mainNav li').on('mouseleave', function() {
+                        $(this).find('.menu-panel').hide()
+                    })
+                })
+            </script>
+            <ul class="nav-c">
+                <li><a href="#">鲜花</a></li>
+                <li><a href="#">水仙花</a></li>
+                <li><a href="#">蛋糕</a></li>
+                <li><a href="#">礼品</a></li>
+                <li><a href="#">甄选</a></li>
+                <li><a href="#">巧克力</a></li>
+                <li><a href="#" class="last">话语大全</a></li>
+            </ul>
+            <div class="nav-r">
+                <a href="#">鲜花</a>
+                <span>|</span>
+                <a href="#">蛋糕<i></i></a>
+                <span>|</span>
+                <a href="#" class="te">花语</a>
+                <span>|</span>
+            </div>
+        </div>
+
+    </div>
+    <banner>
+        <div class="margin">
+            <div class="out">
+                <ul class="img">
+                    <li>
+                        <a href="../pages/list.html"><img src="../images/w1.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="../pages/list.html"><img src="../images/w2.png" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="../pages/list.html"><img src="../images/w3.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="../pages/list.html"><img src="../images/w4.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="../pages/list.html"><img src="../images/w5.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="../pages/list.html"><img src="../images/w6.jpg" alt=""></a>
+                    </li>
+                </ul>
+                <ul class="num">
+                    <!--底部数字栏-->
+                </ul>
+                <div class="left btn">
+                    <</div>
+                        <div class="right btn">>
+                        </div>
+                </div>
+            </div>
+    </banner>
+    <main>
+        <div class="margin">
+            <div class="main-t">
+                <div class="box1">
+                    <span>爱情鲜花</span>
+                    <i>送 让你怦然心动的人</i>
+                </div>
+                <div class="box2">
+                    <a href="" class=""><i>更多爱情鲜花>></i></a>
+                </div>
+            </div>
+            <div class="main-b">
+                <div class="main-b-l">
+                    <a href="" class=""><img src="../images/1.jpg" alt=""></a>
+                    <div class="box">
+                        <div class="box1"><a href="../pages/list.html"><i class="">爱情鲜花专区>></i></a></div>
+                    </div>
+                </div>
+                <div class="main-b-r">
+                    <ul>
+                        <li>
+                            <img src="../images/3.jpg" alt="">
+                            <p>爱情 不变的承诺</p>
+                            <span>￥520</span>
+                            <p>已售2.3万件</p>
+                        </li>
+                        <li>
+                            <img src="../images/4.jpg" alt="">
+                            <p>死猪的承诺</p>
+                            <span>￥666</span>
+                            <p>已售3.3万件</p>
+                        </li>
+                        <li>
+                            <img src="../images/5.jpg" alt="">
+                            <p>一头猪的承诺</p>
+                            <span>￥676</span>
+                            <p>已售6.7万件</p>
+                        </li>
+                        <li>
+                            <img src="../images/6.jpg" alt="">
+                            <p>爱你就是的承诺</p>
+                            <span>￥785</span>
+                            <p>已售8.9万件</p>
+                        </li>
+                        <li>
+                            <img src="../images/7.jpg" alt="">
+                            <p>爱你是体哦变的承诺</p>
+                            <span>￥576</span>
+                            <p>已售0.6万件</p>
+                        </li>
+                        <li>
+                            <img src="../images/8.jpg" alt="">
+                            <p>爱情 v节日不变的承诺</p>
+                            <span>￥330</span>
+                            <p>已售0.9万件</p>
+                        </li>
+                        <li>
+                            <img src="../images/4.jpg" alt="">
+                            <p>不变的承诺</p>
+                            <span>￥570</span>
+                            <p>已售1.3万件</p>
+                        </li>
+                        <li>
+                            <img src="../images/7.jpg" alt="">
+                            <p>你玩覅发给肉</p>
+                            <span>￥5670</span>
+                            <p>已售3.6万件</p>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- <script src="../js/ajax.js"></script> -->
+    <!-- <script src="../js/pagination.js"></script> -->
+    <!-- <script src="../js/list/list.js"></script> -->
+    <script src="../js/cookie.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+    <div id="map">
+        <div class="map-l">
+            <dl>
+                <dt>大的</dt>
+                <dd>幡二哥</dd>
+                <dd>人头呢尼</dd>
+                <dd>边缘人</dd>
+
+            </dl>
+            <dl>
+                <dt>不会</dt>
+                <dd>然后别抬</dd>
+                <dd>个人特点</dd>
+                <dd>后拥有你</dd>
+                <dd>读后感给</dd>
+            </dl>
+            <dl>
+                <dt>表格</dt>
+                <dd>而过让他</dd>
+                <dd>钢化膜就</dd>
+                <dd>眯一会他</dd>
+                <dd>犬瘟热</dd>
+            </dl>
+            <dl>
+                <dt>不如狗</dt>
+                <dd>地方工业和</dd>
+                <dd>富含天然</dd>
+                <dd>那句二人</dd>
+                <dd>不过分吧</dd>
+            </dl>
+            <dl>
+                <dt>大的</dt>
+                <dd>贝多芬给</dd>
+                <dd>给你突然</dd>
+                <dd>的他爸爸</dd>
+
+            </dl>
+        </div>
+        <div class="map-c"><img src="../images/1.jpg" /></div>
+        <div class="map-r"> <img src="../images/7.jpg" /></div>
+    </div>
+
+
+    <!--页脚-->
+    <div id="footer"><span>再多一点点距离，我就能靠近你。清晰甜美的空气里，爱你到不能呼吸</span></div>
+    <script>
+        var $login = $('.login');
+        var $del = $('.del');
+        console.log(333);
+        var lock_ = true;
+        if (getCookie("global")) {
+            lock_ = false;
+            $login[0].innerHTML = "";
+            $login[0].innerHTML = getCookie("global");
+            $del.css({
+                "display": "inline-block"
+            })
+        } else {
+            $login.click(function() {
+                location.href = "./login.html?target=" + encodeURIComponent(location.href)
+                console.log(4546);
+            })
+
+        }
+        $del.click(function() {
+            $.cookie('global', null);
+            $.removeCookie('global');
+            $.removeCookie('global', {
+                path: '/'
+            });
+            location.href = "./first.html";
+
+        })
+    </script>
+
+</body>
+
+</html>

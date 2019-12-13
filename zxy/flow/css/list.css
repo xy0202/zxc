@@ -1,0 +1,34 @@
+.desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.price {
+    font-size: 30px;
+    color: red;
+}
+
+.operate-area {
+    width: 500px;
+    margin: 0 auto;
+    height: 30px;
+    border: 1px solid red;
+    margin-bottom: 40px;
+}
+
+.operate-area {
+    display: flex;
+    justify-content: space-between;
+}
+
+.operate-area .active {
+    background-color: red;
+}
+
+.img-box img {
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="referrer" content="never">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/cart.css">
+</head>
+
+<body>
+    <h1>我是一个购物车页面
+        <a href="./list.html" class="btn btn-warning btn-lg">返回列表页面</a>
+    </h1>
+
+    <div class="container">
+
+    </div>
+    <div class="panel panel-info ">
+        <div class="panel-body bg-info">
+            <div class="checkbox">
+                <label>
+          <input id="selectAll" ${selectAll ? 'checked' : '' } type="checkbox" value="">
+          全选
+        </label>
+                <span>&nbsp;&nbsp;&nbsp; 商品种类：3</span>
+                <span>&nbsp;&nbsp;&nbsp; 所选商品数量： 4</span>
+                <span>&nbsp;&nbsp;&nbsp; 所选商品价格： ￥567</span>&nbsp;&nbsp;&nbsp;
+                <span id="pay" class="btn btn-warning btn-xs">去结算</span>&nbsp;&nbsp;&nbsp;
+                <span id="clear" class="btn btn-danger btn-xs">清空购物车</span>
+            </div>
+
+        </div>
+        <div class="panel-footer">
+            <ul class="cart-list">
+
+                <li class="cart-item">
+                    <div class="left">
+                        <input ${item.is_select===1 ? 'checked' : '' } id="select" data-id="${item.Id}" type="checkbox">
+                    </div>
+                    <div class="right">
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" src="https://img01.hua.com/uploadpic/newpic/9012165.jpg_220x240.jpg" alt="...">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">爱在巴黎</h4>
+                                <p>
+                                    <i class="glyphicon glyphicon-yen"></i>
+                                    <span>456</span>
+                                </p>
+                                <div class="btn-group pull-right" role="group" aria-label="...">
+                                    <button data-id="${item.Id}" type="button" class="btn btn-default" id="sub">-</button>
+                                    <button type="button" class="btn btn-default" disabled>2</button>
+                                    <button data-id="${item.Id}" type="button" class="btn btn-default" id="add">+</button>
+                                </div>
+                                <button id="del" data-id="${item.Id}" class="btn btn-danger">删除</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="cart-item">
+                    <div class="left">
+                        <input ${item.is_select===1 ? 'checked' : '' } id="select" data-id="${item.Id}" type="checkbox">
+                    </div>
+                    <div class="right">
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" src="https://img01.hua.com/uploadpic/newpic/9012437.jpg_220x240.jpg" alt="...">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">倾城月色</h4>
+                                <p>
+                                    <i class="glyphicon glyphicon-yen"></i>
+                                    <span>908</span>
+                                </p>
+                                <div class="btn-group pull-right" role="group" aria-label="...">
+                                    <button data-id="${item.Id}" type="button" class="btn btn-default" id="sub">-</button>
+                                    <button type="button" class="btn btn-default" disabled>2</button>
+                                    <button data-id="${item.Id}" type="button" class="btn btn-default" id="add">+</button>
+                                </div>
+                                <button id="del" data-id="${item.Id}" class="btn btn-danger">删除</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="cart-item">
+                    <div class="left">
+                        <input ${item.is_select===1 ? 'checked' : '' } id="select" data-id="${item.Id}" type="checkbox">
+                    </div>
+                    <div class="right">
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" src="https://img01.hua.com/uploadpic/newpic/9010855.jpg_220x240.jpg" alt="...">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">甜蜜相伴</h4>
+                                <p>
+                                    <i class="glyphicon glyphicon-yen"></i>
+                                    <span>566</span>
+                                </p>
+                                <div class="btn-group pull-right" role="group" aria-label="...">
+                                    <button data-id="${item.Id}" type="button" class="btn btn-default" id="sub">-</button>
+                                    <button type="button" class="btn btn-default" disabled>2</button>
+                                    <button data-id="${item.Id}" type="button" class="btn btn-default" id="add">+</button>
+                                </div>
+                                <button id="del" data-id="${item.Id}" class="btn btn-danger">删除</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- <script src="../js/cookie.js"></script> -->
+    <!-- <script src="../js/utils.js"></script> -->
+    <!-- <script src="../js/pagination.js"></script> -->
+    <script src="../js/cart.js"></script>
+</body>
+
+</html>

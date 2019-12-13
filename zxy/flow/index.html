@@ -1,0 +1,518 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>我的鲜花网</title>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="../flow/js/ajax.js">
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script src="js/ajax.js"></script>
+    <script src="js/index.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .out {
+            position: relative;
+            width: 1200px;
+            height: 390px;
+            margin: 0 auto;
+        }
+        
+        .out .img img {
+            width: 1200px;
+            height: 390px;
+        }
+        
+        .out .img li {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+        
+        .out .num {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            font-size: 0;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .out .num li {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            font-size: 16px;
+            background-color: #666;
+            color: #fff;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 50%;
+            margin: 0 3px;
+            cursor: pointer;
+        }
+        
+        .out .num li.active {
+            background-color: #a00;
+        }
+        
+        .out .btn {
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 60px;
+            padding: 0;
+            margin-top: -30px;
+            background: rgba(0, 0, 0, .5);
+            color: #fff;
+            text-align: center;
+            line-height: 60px;
+            font-size: 40px;
+            display: none;
+        }
+        
+        .out:hover .btn {
+            display: block;
+            cursor: pointer;
+        }
+        
+        .out .left {
+            left: 192px;
+        }
+        
+        .out .right {
+            right: 192px;
+        }
+        
+        .container {
+            margin-top: 10px;
+        }
+        
+        .operate-area span {
+            font-size: 20px;
+        }
+        
+        .ccc {
+            margin-bottom: 10px;
+        }
+        
+        .operate-area {
+            margin: 10px auto;
+        }
+    </style>
+    <script>
+        $(function() {
+            //初始化
+            var size = $(".img li").size(); //获取图片的个数
+            for (var i = 1; i <= size; i++) { //创建图片个数相对应的底部数字个数
+                var li = "<li>" + i + "</li>"; //创建li标签，并插入到页面中
+                $(".num").append(li);
+            }
+
+            //手动控制图片轮播
+            $(".img li").eq(0).show(); //显示第一张图片
+            $(".num li").eq(0).addClass("active"); //第一张图片底部相对应的数字列表添加active类
+            $(".num li").mouseover(function() {
+                $(this).addClass("active").siblings().removeClass("active"); //鼠标在哪个数字上那个数字添加class为active
+                var index = $(this).index(); //定义底部数字索引值
+                i = index; //底部数字索引值等于图片索引值
+                $(".img li").eq(index).stop().fadeIn(300).siblings().stop().fadeOut(300); //鼠标移动到的数字上显示对应的图片
+            })
+
+            //自动控制图片轮播
+            var i = 0; //初始i=0
+            var t = setInterval(move, 2000); //设置定时器，1.5秒切换下一站轮播图
+            //向左切换函数
+            function moveL() {
+                i--;
+                if (i == -1) {
+                    i = size - 1; //如果这是第一张图片再按向左的按钮则切换到最后一张图
+                }
+                $(".num li").eq(i).addClass("active").siblings().removeClass("active"); //对应底部数字添加背景
+                $(".img li").eq(i).fadeIn(300).siblings().fadeOut(300); //对应图片切换
+            }
+            //向右切换函数
+            function move() {
+                i++;
+                if (i == size) {
+                    i = 0; //如果这是最后一张图片再按向右的按钮则切换到第一张图
+                }
+                $(".num li").eq(i).addClass("active").siblings().removeClass("active"); //对应底部数字添加背景
+                $(".img li").eq(i).fadeIn(300).siblings().fadeOut(300); //对应图片切换
+            }
+            //左按钮点击事件
+            $(".out .left").click(function() {
+                    moveL(); //点击左键调用向左切换函数
+                })
+                //右按钮点击事件
+            $(".out .right").click(function() {
+                    move(); //点击右键调用向右切换函数
+                })
+                //定时器开始与结束
+            $(".out").hover(function() {
+                clearInterval(t); //鼠标放在轮播区域上时，清除定时器
+            }, function() {
+                t = setInterval(move, 2000); //鼠标移开时定时器继续
+            })
+        })
+    </script>
+
+
+</head>
+
+<body>
+    <div class="header-t-img">
+        <a href="#">
+            <!-- 跳转到详情页 -->
+            <img src="images/header.png">
+        </a>
+    </div>
+
+    <div id="top" class="margin clear">
+        <div class="top-all">
+            <div class="top-l">
+                <a href="./pages/login.html">欢迎登陆</a>
+                <a href="./pages/zhuce.html">免费注册</a>
+            </div>
+            <div class="top-r">
+                <a href="#" class="te">你要花吗</a>
+                <i class="jian bg"></i>
+                <span>|</span>
+                <i class="iphone bg"></i>
+                <a href="#" class="te">你要花吗</a>
+                <i class="jian bg"></i>
+                <span>|</span>
+                <a href="#" class="te2">你要花吗</a>
+                <span>|</span>
+                <i class="qq bg"></i>
+                <a href="#" class="te2">你要花吗</a>
+                <i class="tel bg"></i>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <div id="header" class="margin">
+        <a href="#" class="logo bg"></a>
+        <div class="search">
+            <form>
+                <input type="text" class="txt" placeholder="商品关键字" />
+                <input type="submit" class="sub" value="搜索" />
+            </form>
+            <p>
+
+                <a>玫瑰花</a>
+                <span>|</span>
+                <a>水仙花</a>
+                <span>|</span>
+                <a>永生花</a>
+                <span>|</span>
+                <a>生日卡花</a>
+
+            </p>
+        </div>
+        <a href="./pages/cart.html" class="shop bg">购物车<span>0</span>件</a>
+    </div>
+    <div id="nav">
+        <div class="margin">
+            <div class="nav-l">
+                <h3>全部商品导购</h3>
+                <ul>
+                    <li><a href="#"><span>鲜花用途</span></br><i>爱情鲜花</i>
+							<i>生日鲜花</i>
+							<i>友情鲜花</i>
+							<i>问候长辈</i>
+							<i>探病慰问</i>
+							<i>道歉鲜花</i>
+							<i>祝贺鲜花</i>
+							<i>婚庆鲜花</i>
+							<i>商务鲜花</i></a></li>
+                    <li><a href="#"><span>鲜花用材</span></br><i>玫瑰花</i>
+							<i>百合</i>
+							<i>康乃馨</i>
+							<i>向日葵</i>
+							<i>郁金香</i>
+							<i>扶郎</i>
+							<i>马蹄莲</i></a></li>
+                    <li><a href="#"><span>永生花</span></br><i>永生瓶花</i>
+							<i>经典花盒</i>
+							<i>特色永生花</i></a></li>
+                    <li><a href="#"><span>蛋糕</span></br><i>元祖</i>
+							<i>幸福西饼</i>
+							<i>21cake</i>
+							<i>诺心蛋糕</i>
+							<i>窝夫小子</i>
+							<i>BONCAKE</i></a></li>
+                    <li><a href="#"><span>礼品/公仔/绿植</span></a></li>
+                    <li><a href="#"><span>IT数码/小家电</span></a></li>
+
+                </ul>
+            </div>
+            <ul class="nav-c">
+                <li><a href="#">鲜花</a></li>
+                <li><a href="#">水仙花</a></li>
+                <li><a href="#">蛋糕</a></li>
+                <li><a href="#">礼品</a></li>
+                <li><a href="#">甄选</a></li>
+                <li><a href="#">巧克力</a></li>
+                <li><a href="#" class="last">话语大全</a></li>
+            </ul>
+            <div class="nav-r">
+                <a href="#">嗯哼</a>
+                <span>|</span>
+                <a href="#">嗯哼哦<i></i></a>
+                <span>|</span>
+                <a href="#" class="te">嗯哼</a>
+
+            </div>
+        </div>
+
+    </div>
+    <banner>
+        <div class="margin">
+            <div class="out">
+                <ul class="img">
+                    <li>
+                        <a href="./pages/list.html"><img src="images/w1.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="./pages/list.html"><img src="images/w2.png" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="./pages/list.html"><img src="images/w3.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="./pages/list.html"><img src="images/w4.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="./pages/list.html"><img src="images/w5.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="./pages/list.html"><img src="images/w6.jpg" alt=""></a>
+                    </li>
+                </ul>
+                <ul class="num">
+                    <!--底部数字栏-->
+                </ul>
+                <div class="left btn">
+                    <</div>
+                        <div class="right btn">>
+                        </div>
+                </div>
+            </div>
+    </banner>
+    <main>
+        <div class="margin">
+
+            <div class="aa">
+                <div class="main-t">
+                    <div class="box1">
+                        <span>爱情鲜花</span>
+                        <i>送 让你怦然心动的人</i>
+                    </div>
+                    <div class="box2">
+                        <a href="" class=""><i>更多爱情鲜花>></i></a>
+                    </div>
+                </div>
+                <div class="main-b">
+                    <div class="main-b-l">
+                        <a href="" class=""><img src="images/1.jpg" alt=""></a>
+                        <div class="box">
+                            <div class="box1"><i class="">爱情鲜花专区>></i></div>
+                        </div>
+                    </div>
+                    <div class="main-b-r">
+                        <!-- <a href="pages/enlarge.html"> -->
+                            <ul>
+                                <li>
+                                    <img src="images/3.jpg" alt="">
+                                    <p>爱情 不变的承诺</p>
+                                    <span>￥520</span>
+                                    <p>已售2.3万件</p>
+                                </li>
+                                <li>
+                                    <img src="images/4.jpg" alt="">
+                                    <p>爱情 不变的承诺</p>
+                                    <span>￥520</span>
+                                    <p>已售2.3万件</p>
+                                </li>
+                                <li>
+                                    <img src="images/5.jpg" alt="">
+                                    <p>爱情 不变的承诺</p>
+                                    <span>￥520</span>
+                                    <p>已售2.3万件</p>
+                                </li>
+                                <li>
+                                    <img src="images/6.jpg" alt="">
+                                    <p>爱情 不变的承诺</p>
+                                    <span>￥520</span>
+                                    <p>已售2.3万件</p>
+                                </li>
+                                <li>
+                                    <img src="images/7.jpg" alt="">
+                                    <p>爱情 不变的承诺</p>
+                                    <span>￥520</span>
+                                    <p>已售2.3万件</p>
+                                </li>
+                                <li>
+                                    <img src="images/8.jpg" alt="">
+                                    <p>爱情 不变的承诺</p>
+                                    <span>￥520</span>
+                                    <p>已售2.3万件</p>
+                                </li>
+                                <li>
+                                    <img src="images/4.jpg" alt="">
+                                    <p>爱情 不变的承诺</p>
+                                    <span>￥520</span>
+                                    <p>已售2.3万件</p>
+                                </li>
+                                <li>
+                                    <img src="images/7.jpg" alt="">
+                                    <p>爱情 不变的承诺</p>
+                                    <span>￥520</span>
+                                    <p>已售2.3万件</p>
+                                </li>
+
+                            </ul>
+                        <!-- </a> -->
+                    </div>
+
+                </div>
+            </div>
+            <div class="bb">
+                <div class="main-t">
+                    <div class="box1">
+                        <span>长辈鲜花</span>
+                        <i>送 真正关心你的人</i>
+                    </div>
+                    <div class="box2">
+                        <a href="" class=""><i>更多爱情鲜花>></i></a>
+                    </div>
+                </div>
+                <div class="main-b">
+                    <div class="main-b-l">
+                        <a href="" class=""><img src="images/2.jpg" alt=""></a>
+                        <div class="box">
+                            <div class="box1"><i class="">长辈鲜花专区>></i></div>
+                        </div>
+                    </div>
+                    <div class="main-b-r">
+                        <ul>
+                            <li>
+                                <img src="images/3.jpg" alt="">
+                                <p>爱情 不变的承诺</p>
+                                <span>￥520</span>
+                                <p>已售2.3万件</p>
+                            </li>
+                            <li>
+                                <img src="images/4.jpg" alt="">
+                                <p>爱情 不变的承诺</p>
+                                <span>￥520</span>
+                                <p>已售2.3万件</p>
+                            </li>
+                            <li>
+                                <img src="images/5.jpg" alt="">
+                                <p>爱情 不变的承诺</p>
+                                <span>￥520</span>
+                                <p>已售2.3万件</p>
+                            </li>
+                            <li>
+                                <img src="images/6.jpg" alt="">
+                                <p>爱情 不变的承诺</p>
+                                <span>￥520</span>
+                                <p>已售2.3万件</p>
+                            </li>
+                            <li>
+                                <img src="images/7.jpg" alt="">
+                                <p>爱情 不变的承诺</p>
+                                <span>￥520</span>
+                                <p>已售2.3万件</p>
+                            </li>
+                            <li>
+                                <img src="images/8.jpg" alt="">
+                                <p>爱情 不变的承诺</p>
+                                <span>￥520</span>
+                                <p>已售2.3万件</p>
+                            </li>
+                            <li>
+                                <img src="images/4.jpg" alt="">
+                                <p>爱情 不变的承诺</p>
+                                <span>￥520</span>
+                                <p>已售2.3万件</p>
+                            </li>
+                            <li>
+                                <img src="images/7.jpg" alt="">
+                                <p>爱情 不变的承诺</p>
+                                <span>￥520</span>
+                                <p>已售2.3万件</p>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+    <div id="map">
+        <div class="map-l">
+            <dl>
+                <dt>如果</dt>
+                <dd>那么难</dd>
+                <dd>简单点</dd>
+                <dd>会更美好</dd>
+
+            </dl>
+            <dl>
+                <dt>如果</dt>
+                <dd>那么难</dd>
+                <dd>简单点</dd>
+                <dd>会更美好</dd>
+                <dd>人间不值得</dd>
+            </dl>
+            <dl>
+                <dt>如果</dt>
+                <dd>那么难</dd>
+                <dd>简单点</dd>
+                <dd>会更美好</dd>
+                <dd>人间不值得</dd>
+            </dl>
+            <dl>
+                <dt>如果</dt>
+                <dd>那么难</dd>
+                <dd>简单点</dd>
+                <dd>会更美好</dd>
+                <dd>人间不值得</dd>
+            </dl>
+            <dl>
+                <dt>如果</dt>
+                <dd>那么难</dd>
+                <dd>简单点</dd>
+                <dd>会更美好</dd>
+
+            </dl>
+        </div>
+        <div class="map-c"><img src="./images/map.png" /></div>
+        <div class="map-r"> <img src="./images/t33.png" /></div>
+    </div>
+
+
+    <!--页脚-->
+    <div id="footer"><span>如果你已经不能控制 每天想我一次 如果你因为我而诚实</span></div>
+</body>
+
+
+</html

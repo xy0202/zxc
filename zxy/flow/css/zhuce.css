@@ -1,0 +1,25 @@
+form {
+    width: 50%;
+}
+.login-top h1{
+    color:red;
+}
+.login-body{
+    margin:50px 0 0 50px;
+}
+
+.login-body h2{
+    color:red;
+}
+.login-contant{
+    width: 100%;
+    height: 520px;
+    background-image: url(../images/w2.png);
+    /* opacity: 0.5; */
+}s
+
+.container {
+    position: absolute;
+    top: 200px;
+    left: 30%;
+}
