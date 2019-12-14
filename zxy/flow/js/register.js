@@ -22,7 +22,7 @@ var opas2 = document.getElementById("m2");
 var oTxt2 = document.getElementById("user");
 var obtn = document.getElementById("bt");
 var t1 = p1 = p2 = t2 = false;
-oTxt1.onblur = function () {
+oTxt1.onblur = function() {
     var reg = /^1[3-9][0-9]{9}$/
     if (reg.test(this.value)) {
         this.nextElementSibling.innerHTML = "正确";
@@ -34,8 +34,8 @@ oTxt1.onblur = function () {
 }
 
 
-opas1.onblur = function () {
-      var reg =/^[a-z,A-Z.0-9]{6,20}$/
+opas1.onblur = function() {
+    var reg = /^[a-z,A-Z.0-9]{6,20}$/
     if (reg.test(this.value)) {
         this.nextElementSibling.innerHTML = "正确";
         t2 = true;
@@ -52,7 +52,7 @@ opas1.onblur = function () {
         p2 = false;
     }
 }
-opas2.onblur = function () {
+opas2.onblur = function() {
     if (this.value === opas1.value) {
         this.nextElementSibling.innerHTML = "一致";
         p2 = true;
@@ -63,33 +63,35 @@ opas2.onblur = function () {
 }
 
 var arr;
-arr = getCookie("user") ? JSON.parse(getCookie("user")):[];
-obtn.onclick = function () {
-    var off = false;
-    if (  p2 && t2 && t1) {
+arr = getCookie("user") ? JSON.parse(getCookie("user")) : [];
+console.log(arr);
+
+obtn.onclick = function() {
+        var off = false;
+        if (p2 && t2 && t1) {
             for (var i = 0; i < arr.length; i++) {
                 if (arr[i].user === oTxt2.value) {
                     alert("用户名已存在")
-                     off = false;
-                     return;
+                    off = false;
+                    return;
                 }
             }
-        
-          if(!off){
-              arr.push({
-                user: oTxt2.value,
-                pass: opas1.value
-           })
-            setCookie("user", JSON.stringify(arr), { expires: 3, });
-           off = true;
-              alert("注册成功，去登录")
-            //   window.location.href = 'http://localhost/zxy/flow/pages/list.html'
-          }
+
+            if (!off) {
+                arr.push({
+                    user: oTxt2.value,
+                    pass: opas1.value
+                })
+                setCookie("user", JSON.stringify(arr), { expires: 3, });
+                off = true;
+                alert("注册成功，去登录")
+                    //   window.location.href = 'http://localhost/zxy/flow/pages/list.html'
+            }
         }
-        
-       if (off) {
-        window.location.href = 'http://localhost/zxy/flow/pages/login.html'
-      }
+
+        if (off) {
+            window.location.href = 'http://localhost/zxy/flow/pages/login.html'
+        }
     }
     //     var obj={}
     //     obj.user = oTxt2.value;
@@ -100,8 +102,8 @@ obtn.onclick = function () {
     //   if(off){
     //     window.location.href = 'http://localhost/boqi/login.html'
     //     }
-       
-    
+
+
 // function setCookie() {
 //    var arr = getCookie("user") ? JSON.parse(getCookie("user")) : [];
 //     console.log(arr)
